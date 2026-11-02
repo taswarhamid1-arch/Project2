@@ -81,7 +81,7 @@ public class TripPoint {
 	}
 
 	/**
-	 * reads the CSV file ad fills the trip list with one point per line. Prints a
+	 * Reads the CSV file and fills the trip list with one point per line. Prints a
 	 * message if the file cannot be found.
 	 * 
 	 * @param filename the name of the CSV file to read
@@ -178,11 +178,11 @@ public class TripPoint {
 	}
 
 	/**
-	 * Returns the average speed between two points. The order of the points do not
-	 * matter
+	 * Returns the average speed between two points. The order of the points does not
+	 * matter.
 	 * 
 	 * @param a the first point
-	 * @param b second point
+	 * @param b the second point
 	 * @return the average speed in kilometers per hour
 	 */
 	public static double avgSpeed(TripPoint a, TripPoint b) {

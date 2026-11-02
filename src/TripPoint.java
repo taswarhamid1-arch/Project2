@@ -10,9 +10,21 @@ import java.util.Scanner;
  */
 public class TripPoint {
 
+	/**
+	 * The latitude of this point in degrees
+	 */
 	private double lat;
+	/**
+	 * The longitude of this point in degrees
+	 */
 	private double lon;
+	/**
+	 * The time of this point in minutes since trip started
+	 */
 	private int time;
+	/**
+	 * The list that holds every point of the trip
+	 */
 	private static ArrayList<TripPoint> trip = new ArrayList<>();
 	
 	/**

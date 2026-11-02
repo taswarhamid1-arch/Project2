@@ -3,6 +3,11 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Represents one GPS point from a trip and holds the list of all trip points.
+ * 
+ * @author Taswar Hamid
+ */
 public class TripPoint {
 
 	private double lat;
@@ -10,20 +15,42 @@ public class TripPoint {
 	private int time;
 	private static ArrayList<TripPoint> trip = new ArrayList<>();
 	
+	/**
+	 * Creates a trip point.
+	 *
+	 * @param time the time in minutes since the trip started
+	 * @param lat the latitude in degrees
+	 * @param lon the longitude in degrees
+	 */
 	public TripPoint(int time, double lat, double lon) {
 		this.time = time;
 		this.lat = lat;
 		this.lon = lon;
 	}
 	
+	/**
+	 * Returns the time of this point.
+	 *
+	 * @return the time in minutes
+	 */
 	public int getTime() {
         return time;
     }
 
+	/**
+	 * Returns the latitude of this point.
+	 *
+	 * @return the latitude in degrees
+	 */
     public double getLat() {
         return lat;
     }
-
+    
+	/**
+	 * Returns the longitude of this point.
+	 *
+	 * @return the longitude in degrees
+	 */
     public double getLon() {
         return lon;
     }

@@ -55,7 +55,11 @@ public class TripPoint {
         return lon;
     }
     
-    
+    /**
+     * Returns a copy of the list of trip points.
+     * 
+     * @return a new list holding every trip point
+     */
     public static ArrayList<TripPoint> getTrip() {
     	ArrayList<TripPoint> copy = new ArrayList<TripPoint>();
     	 for (int i = 0; i < trip.size(); i++) {
@@ -64,6 +68,12 @@ public class TripPoint {
     	 return copy;
     }
     
+    /**
+     * reads the CSV file ad fills the trip list with one point per line.
+     * Prints a message if the file cannot be found.
+     * 
+     * @param filename the name of the CSV file to read
+     */
     public static void readFile(String filename) {
         trip.clear();
 

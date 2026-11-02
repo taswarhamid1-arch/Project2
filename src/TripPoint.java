@@ -139,10 +139,22 @@ public class TripPoint {
         return 2 * radius * Math.asin(Math.sqrt(h));
     }
     
+    /**
+     * Returns the total distance of the trip.
+     * 
+     * @return the total distance in kilometers
+     */
     public static double totalDistance() {
     	return totalDistance(0,0);
     }
     
+    /**
+     * Adds up the distance between each point and the next one, using recursion.
+     * 
+     * @param index the position of the current point
+     * @param total the distance added up till now
+     * @return the total distance in kilometers
+     */
     private static double totalDistance(int index, double total) {
     	if (index >= trip.size() - 1) {
     		return total;
@@ -153,6 +165,13 @@ public class TripPoint {
     	return totalDistance(index +1, total + distance);
     }
     
+    /**
+     * Returns the average speed between two points. The order of the points do not matter
+     * 
+     * @param a the first point
+     * @param b second point
+     * @return the average speed in kilometers per hour
+     */
     public static double avgSpeed(TripPoint a, TripPoint b) {
         double distance = haversineDistance(a, b);
 

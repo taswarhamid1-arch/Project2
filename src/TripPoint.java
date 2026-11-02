@@ -1,4 +1,121 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 public class TripPoint {
 
-}
+	private double lat;
+	private double lon;
+	private int time;
+	private static ArrayList<TripPoint> trip = new ArrayList<>();
+	
+	public TripPoint(int time, double lat, double lon) {
+		this.time = time;
+		this.lat = lat;
+		this.lon = lon;
+	}
+	
+	public int getTime() {
+        return time;
+    }
+
+    public double getLat() {
+        return lat;
+    }
+
+    public double getLon() {
+        return lon;
+    }
+    
+    
+    public static ArrayList<TripPoint> getTrip() {
+    	ArrayList<TripPoint> copy = new ArrayList<TripPoint>();
+    	 for (int i = 0; i < trip.size(); i++) {
+    		 copy.add(trip.get(i));
+    	 }
+    	 return copy;
+    }
+    
+    public static void readFile(String filename) {
+        trip.clear();
+
+        try {
+            Scanner input = new Scanner(new File(filename));
+            input.nextLine();
+
+            while (input.hasNextLine()) {
+                String line = input.nextLine();
+
+                if (line.length() > 0) {
+                    int comma1 = line.indexOf(",");
+                    int comma2 = line.indexOf(",", comma1 + 1);
+
+                    int time = Integer.parseInt(line.substring(0, comma1));
+                    double lat = Double.parseDouble(line.substring(comma1 + 1, comma2));
+                    double lon = Double.parseDouble(line.substring(comma2 + 1));
+
+                    trip.add(new TripPoint(time, lat, lon));
+                }
+            }
+
+            input.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found: " + filename);
+        }
+    }
+    
+    public static double totalTime() {
+    	int last = trip.size()-1;
+    	int minutes = trip.get(last).getTime();
+    	
+    	return minutes / 60.0;
+    }
+    
+    public static double haversineDistance(TripPoint a, TripPoint b) {
+    	double radius = 6371.0;
+    	
+    	double lat1 = Math.toRadians(a.getLat());
+    	double lat2 = Math.toRadians(b.getLat());
+    	double lon1 = Math.toRadians(a.getLon());
+    	double lon2 = Math.toRadians(b.getLon());
+    	
+    	double dLat = lat2 - lat1;
+    	double dLon = lon2 - lon1;
+    	
+    	double part1 = Math.sin(dLat / 2) * Math.sin(dLat / 2);
+        double part2 = Math.cos(lat1) * Math.cos(lat2) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
+        double h = part1 + part2;
+
+        return 2 * radius * Math.asin(Math.sqrt(h));
+    }
+    
+    public static double totalDistance() {
+    	return totalDistance(0,0);
+    }
+    
+    private static double totalDistance(int index, double total) {
+    	if (index >= trip.size() - 1) {
+    		return total;
+    	}
+    	
+    	double distance = haversineDistance(trip.get(index), trip.get(index + 1));
+    	
+    	return totalDistance(index +1, total + distance);
+    }
+    
+    public static double avgSpeed(TripPoint a, TripPoint b) {
+        double distance = haversineDistance(a, b);
+
+        int minutes = a.getTime() - b.getTime();
+        if (minutes < 0) {
+            minutes = -minutes;
+        }
+
+        double hours = minutes / 60.0;
+
+        return distance / hours;
+    }
+    	    	
+    	
+ }

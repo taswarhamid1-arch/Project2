@@ -102,6 +102,11 @@ public class TripPoint {
         }
     }
     
+    /**
+     * Returns the total time of the trip.
+     * 
+     * @return the total time in hours
+     */
     public static double totalTime() {
     	int last = trip.size()-1;
     	int minutes = trip.get(last).getTime();
@@ -109,6 +114,13 @@ public class TripPoint {
     	return minutes / 60.0;
     }
     
+    /**
+     * Calculates the Haversine distance between two points.
+     * 
+     * @param a the first point
+     * @param b the second point
+     * @return the distance in km
+     */
     public static double haversineDistance(TripPoint a, TripPoint b) {
     	double radius = 6371.0;
     	
